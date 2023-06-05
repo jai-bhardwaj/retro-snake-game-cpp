@@ -4,7 +4,7 @@ RAYLIB_VERSION     ?= 4.5.0
 RAYLIB_PATH        ?= ..\..
 COMPILER_PATH      ?= C:/raylib/w64devkit/bin
 PLATFORM           ?= PLATFORM_DESKTOP
-DESTDIR ?= /usr/local
+DESTDIR ?= /opt/homebrew/Cellar/raylib/4.5.0
 RAYLIB_INSTALL_PATH ?= $(DESTDIR)/lib
 RAYLIB_H_INSTALL_PATH ?= $(DESTDIR)/include
 RAYLIB_LIBTYPE        ?= STATIC
@@ -90,7 +90,7 @@ ifeq ($(PLATFORM),PLATFORM_DESKTOP)
         MAKE = make
     endif
 endif
-CFLAGS += -Wall -std=c++14 -D_DEFAULT_SOURCE -Wno-missing-braces
+CFLAGS += -Wall -std=c++17 -D_DEFAULT_SOURCE -Wno-missing-braces
 ifeq ($(BUILD_MODE),DEBUG)
     CFLAGS += -g -O0
 else
@@ -122,7 +122,7 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
 endif
 INCLUDE_PATHS = -I. -I$(RAYLIB_PATH)/src -I$(RAYLIB_PATH)/src/external
 ifneq ($(wildcard /opt/homebrew/include/.*),)
-    INCLUDE_PATHS += -I/opt/homebrew/include
+    INCLUDE_PATHS += -I/opt/homebrew/Cellar/raylib/4.5.0/include/
 endif
 ifeq ($(PLATFORM),PLATFORM_RPI)
     INCLUDE_PATHS += -I/opt/vc/include
@@ -145,7 +145,7 @@ ifneq ($(wildcard $(RAYLIB_PATH)/src/.*),)
     LDFLAGS += -L$(RAYLIB_PATH)/src
 endif
 ifneq ($(wildcard /opt/homebrew/lib/.*),)
-    LDFLAGS += -L/opt/homebrew/lib
+    LDFLAGS += -L/opt/homebrew/Cellar/raylib/4.5.0/lib
 endif
 
 ifeq ($(PLATFORM),PLATFORM_DESKTOP)
@@ -194,7 +194,7 @@ rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst 
 SRC_DIR = src
 OBJ_DIR = obj
 SRC = $(call rwildcard, *.c, *.h)
-OBJS ?= main.cpp
+OBJS ?= main.cpp Snake.cpp Game.cpp Food.cpp Constants.cpp
 ifeq ($(PLATFORM),PLATFORM_ANDROID)
     MAKEFILE_PARAMS = -f Makefile.Android 
     export PROJECT_NAME
