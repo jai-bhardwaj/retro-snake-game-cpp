@@ -19,7 +19,7 @@ int main()
     {
         BeginDrawing();
 
-        if (eventTriggered(0.3) == true)
+        if (eventTriggered(0.18) == true)
         {
             game.Update();
         }
